@@ -1,2 +1,2 @@
 # Medibox
- This is a project on smart medibox which ereminds patients to take medicines on time
+ This is a project on a smart medibox which reminds patients to take medicines on time

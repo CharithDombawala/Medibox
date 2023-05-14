@@ -1,7 +1,8 @@
 #include <Adafruit_GFX.h>
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
-#include <DHTesp.h>
+#include <SPI.h>
+//#include <DHTesp.h>
 //#include <WiFi.h>
 
 #define  SCREEN_WIDTH 128
@@ -22,7 +23,7 @@
 //#define UTC_OFFSET     0
 //#define UTC_OFFSET_DST 0
 
-DHTesp dhtsensor;
+//DHTesp dhtsensor;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 //Global variable
@@ -160,7 +161,7 @@ void print_time_now(){
 }*/
 
 
-/*void update_time(){
+void update_time(){
   timeNow=millis()/1000;
   seconds=timeNow - timeLast;
   if (seconds>=60){
@@ -175,7 +176,7 @@ void print_time_now(){
       days+=1;
       hours=0;
   }   
-} */
+} 
 
 
 void ring_alarm(){
@@ -206,7 +207,7 @@ void ring_alarm(){
 }
 
 void update_time_with_check_alarm(){
-  //update_time();
+  update_time();
   print_time_now();
 
   if(alarm_enabled){
@@ -224,22 +225,22 @@ void update_time_with_check_alarm(){
 int wait_for_button_press(){
   while(true){
     if(digitalRead(pb_ok)==LOW){
-      //delay(200);
+      delay(200);
       return pb_ok;
     }
     else if(digitalRead(pb_up)==LOW){
-      //delay(200);
+      delay(200);
       return pb_up;
     }
     else if(digitalRead(pb_down)==LOW){
-      //delay(200);
+      delay(200);
       return pb_down;
     }
     else if(digitalRead(pb_cancel)==LOW){
-      //delay(200);
+      delay(200);
       return pb_cancel;
     }
-    //update_time();
+    update_time();
   }
 }
 
@@ -267,7 +268,6 @@ void go_to_menu(){
 
     else if(pressed==pb_ok){
       delay(200);
-      //Serial.println(current_mode);
       run_mode(current_mode);
     }
 
@@ -445,22 +445,22 @@ void run_mode(int current_mode){
 }
 
 
-void check_temp(){
-  TempAndHumidity data= dhtsensor.getTempAndHumidity();
-  if(data.temperature>35){
-    display.clearDisplay();
-    print_text("Temp High",0,40,2);
-  }
-  else if(data.temperature<25){
-    display.clearDisplay();
-    print_text("Temp Low",0,40,2);
-  }
-  if(data.humidity>40){
-    display.clearDisplay();
-    print_text("Humidity High",50,40,2);
-  }
-  else if(data.humidity<20){
-    display.clearDisplay();
-    print_text("Humidity Low",50,40,2);
-  }
-}
+// void check_temp(){
+//   TempAndHumidity data= dhtsensor.getTempAndHumidity();
+//   if(data.temperature>35){
+//     display.clearDisplay();
+//     print_text("Temp High",0,40,2);
+//   }
+//   else if(data.temperature<25){
+//     display.clearDisplay();
+//     print_text("Temp Low",0,40,2);
+//   }
+//   if(data.humidity>40){
+//     display.clearDisplay();
+//     print_text("Humidity High",50,40,2);
+//   }
+//   else if(data.humidity<20){
+//     display.clearDisplay();
+//     print_text("Humidity Low",50,40,2);
+//   }
+// }
